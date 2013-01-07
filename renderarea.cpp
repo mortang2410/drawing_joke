@@ -128,7 +128,10 @@ void Renderarea::mouseMoveEvent(QMouseEvent *event)
 }
 
 
-QList<MyShape *>  MyGraphicsScene::mySelectedItems(){
+QList<MyShape *>  MyGraphicsScene::mySelectedItems()
+{
+    //don't use this too much unless you really need a list of MyShapes
+    //as this will create a totally new list
     QList<MyShape *> thelist;
     QGraphicsItem * item;
     foreach (item, selectedItems()) {
@@ -795,10 +798,9 @@ void MyGraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
     QPointF pos = event->scenePos();
     if ((buffer.size() == 0) && mouseDecor->scene())    
         QGraphicsScene::removeItem(mouseDecor); 
-    if (ismoving){
-        movinglist = mySelectedItems();
-        foreach (MyShape * item, movinglist)
-            item->myMoveBy(pos- event->lastScenePos());
+    if (ismoving){        
+        foreach (QGraphicsItem * item, selectedItems())
+            ((MyShape*) item)->myMoveBy(pos- event->lastScenePos());
     }
     if (currentMode.modename == MyMode::AddMode) {
         switch (currentMode.add.kind) {
@@ -924,9 +926,8 @@ void MyGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
         QGraphicsScene::removeItem(mouseDecor);
     if (ismoving){
         endmove = event->scenePos();
-        if (endmove != startmove){
-            movinglist = mySelectedItems();
-            move(movinglist,endmove-startmove);
+        if (endmove != startmove){            
+            move(mySelectedItems(),endmove-startmove);
         }
         ismoving = false;
     }         

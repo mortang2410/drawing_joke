@@ -13,12 +13,12 @@ SOURCES += \
     mydockwidgets.cpp \
     saveLoad.cpp \
     mydockwidgets2.cpp
+PRECOMPILED_HEADER += qtmodules.h
 HEADERS += \
     renderarea.h \
     myshape.h \
     mymainwindow.h \
-    mycentralwidget.h \
-    qtmodules.h \
+    mycentralwidget.h \   
     misc.h \
     commands.h \
     mydialogs.h \
@@ -38,3 +38,8 @@ RESOURCES += \
     resource.qrc
 QT += widgets
 INCLUDEPATH += "D:/qtbuild/testing2"
+
+
+#FOR RELEASE MODE ONLY
+DEFINES += QT_NO_DEBUG QT_NO_DEBUG_OUTPUT QT_NO_WARNING_OUTPUT QT_NO_DEBUG_STREAM
+CONFIG += release

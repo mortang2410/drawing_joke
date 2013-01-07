@@ -43,7 +43,7 @@ public:
     MyShape * onlySelectedItem() const {
         if (currentScene() == 0) return 0;
         if (currentScene()->selectedItems().size()==1)
-            return  currentScene()->mySelectedItems().first();
+            return  (MyShape *) currentScene()->selectedItems().first();
         else return 0;
     }
     Renderarea * lastRenderarea;

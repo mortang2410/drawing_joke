@@ -602,10 +602,12 @@ void MyMainWindow::itemColorChanged(bool UsingSlider)
         scene->currentBrush.setColor(brushColorButton->color());
     if (scene->selectedItems().size())
     {
-        QList<MyShape *> list(scene->mySelectedItems());
+        QList<QGraphicsItem *> list(scene->selectedItems());
         QList<MyShape *> listFiltered;
-        foreach (MyShape * item, list)
-            if ( !item->isPoint()) listFiltered << item;
+        foreach (QGraphicsItem * item, list) {
+            MyShape * shape = (MyShape *) item;
+            if ( !shape->isPoint()) listFiltered << shape;
+        }
         if (sender() == lineColorButton)
         {            
             scene->undoStack->push(new ModifyShapeCommand(
@@ -754,8 +756,9 @@ void MyMainWindow::deleteItem() {
     MyGraphicsScene * scene = currentScene();
     if (scene == 0) return;
     scene->undoStack->beginMacro(tr("Delete stuff"));
-    foreach (MyShape * item, currentScene()->mySelectedItems()) {
-        if (item->scene()) scene->removeItemMacro(item);
+    foreach (QGraphicsItem * item, currentScene()->selectedItems()) {
+        MyShape * shape = (MyShape *) item;
+        if (shape->scene()) scene->removeItemMacro(shape);
     }
     scene->undoStack->endMacro();
 }

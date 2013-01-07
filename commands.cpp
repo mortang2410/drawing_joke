@@ -147,7 +147,7 @@ void Common::add(MyGraphicsScene *myscene, MyShape *myitem, bool topLevel)
     myscene->accessMapLabel()[myitem->getLabel()] = myitem;
 
     myscene->accessMyItems() << myitem;
-    if (topLevel) myscene->topLevelItems() << myitem;
+    if (topLevel) myscene->accessTopLevelItems() << myitem;
     myscene->accessModel()->endInsertShape();
 }
 
@@ -159,7 +159,7 @@ void Common::remove(MyGraphicsScene *myscene, MyShape *myitem, bool topLevel)
     myscene->accessMapLabel().remove(myitem->getLabel());
     myscene->accessMyItems().removeAll(myitem);
 
-    if (topLevel) myscene->topLevelItems().removeAll(myitem);
+    if (topLevel) myscene->accessTopLevelItems().removeAll(myitem);
     myscene->accessModel()->endRemoveShape();
 }
 

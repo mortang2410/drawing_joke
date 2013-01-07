@@ -126,7 +126,7 @@ public:
 
     QList<MyShape *> & accessMyItems() {return myItems_;}
     const QList<MyShape *> & myItemsConst() const { return myItems_;}
-    QList<MyShape *> & topLevelItems()  {return topLevelItems_;}
+    QList<MyShape *> & accessTopLevelItems()  {return topLevelItems_;}
     const QList<MyShape *> & topLevelItemsConst() const {return topLevelItems_;}
     QMap<QString,MyShape *> & accessMapLabel()  {return mapLabel_;}
     const QMap<QString,MyShape *> & mapLabelConst() const {return mapLabel_;}

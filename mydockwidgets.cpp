@@ -52,8 +52,8 @@ void MyTreeView::sceneSelectionChanged()
     if (model)
     {
         model->clearSelection();
-        foreach (MyShape * shape, scene->mySelectedItems()) {
-            QModelIndex ind = myModel()->lookup(shape);
+        foreach (QGraphicsItem * item, scene->selectedItems()) {
+            QModelIndex ind = myModel()->lookup((MyShape *) item);
             if (ind.isValid()) {
                 model->select(ind,QItemSelectionModel::Select);
             }

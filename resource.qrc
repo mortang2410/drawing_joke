@@ -1,0 +1,37 @@
+<RCC>
+    <qresource prefix="/">
+        <file>actions/edit-undo.svg</file>
+        <file>actions/edit-redo.svg</file>
+        <file>actions/edit-delete.svg</file>
+        <file>actions/circle.svg</file>
+        <file>actions/ellipse.svg</file>
+        <file>actions/rect.svg</file>
+        <file>actions/line.svg</file>
+        <file>actions/point.svg</file>
+        <file>actions/polygon.svg</file>
+        <file>actions/ray.svg</file>
+        <file>actions/segment.svg</file>
+        <file>actions/package-reinstall.svg</file>
+        <file>actions/package-purge.svg</file>
+        <file>actions/document-encrypt.svg</file>
+        <file>actions/document-export.svg</file>
+        <file>actions/document-import.svg</file>
+        <file>actions/document-new.svg</file>
+        <file>actions/document-open-recent.svg</file>
+        <file>actions/document-open.svg</file>
+        <file>actions/document-page-setup.svg</file>
+        <file>actions/document-print-preview.svg</file>
+        <file>actions/document-print.svg</file>
+        <file>actions/document-properties.svg</file>
+        <file>actions/document-revert.svg</file>
+        <file>actions/document-save-as.svg</file>
+        <file>actions/document-save.svg</file>
+        <file>actions/document-send.svg</file>
+        <file>actions/application-exit.svg</file>
+        <file>actions/about.svg</file>
+        <file>actions/help-about.svg</file>
+        <file>actions/system-run.svg</file>
+        <file>actions/edit-select-all.svg</file>
+        <file>myappicon.svg</file>
+    </qresource>
+</RCC>
