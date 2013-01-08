@@ -231,6 +231,7 @@ private:
     QMdiSubWindow * subWindow;
     QPoint lastPan;
     QPen penBackground;
+    QPen penBackgroundAlt;
 signals:
     void scaleChanged(int newval);
     void savePls(bool * a = 0);

@@ -16,6 +16,8 @@ Renderarea::Renderarea(QWidget *parent) :
     setScene(myscene);    
     penBackground = QPen(Qt::lightGray);
     penBackground.setCosmetic(true);
+    penBackgroundAlt = QPen(Qt::darkGray);
+    penBackgroundAlt.setCosmetic(true);
     setCacheMode(QGraphicsView::CacheNone);
     setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
     setOptimizationFlag(QGraphicsView::DontSavePainterState,true);
@@ -52,13 +54,13 @@ void Renderarea::drawBackground(QPainter *painter, const QRectF &rect)
         {
             if (mymod(x/actualTick,5)==0){
                 painter->save();
-                painter->setPen( QPen(QBrush(Qt::darkGray),0)  );
+                painter->setPen(penBackgroundAlt);
                 painter->drawText(QPointF(x,rect.bottom()),
                                   QString::number(x,'g',3));
 
             }
             painter->drawLine(x,rect.bottom(),x,rect.top());
-            if (mymod(x/actualTick,5)==0){
+            if (mymod(x/actualTick,5)==0) {
                 painter->restore();
             }
         }
@@ -67,7 +69,7 @@ void Renderarea::drawBackground(QPainter *painter, const QRectF &rect)
         {
             if (mymod(y/actualTick,5)==0){
                 painter->save();
-                painter->setPen( QPen(QBrush(Qt::darkGray),0)  );
+                painter->setPen(penBackgroundAlt);
                 painter->drawText(QPointF(rect.left(),y),
                                   QString::number(-y,'g',3));
             }
