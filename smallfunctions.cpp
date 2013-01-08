@@ -7,7 +7,6 @@ QString giveName(int i){
     return QString("%1%2").arg(char(alpha)).arg(QString::number(numeric));
 }
 
-
 QRectF enlargeRect(QPointF point, QRectF rect) {
     QPointF d (rect.width(),rect.height());
     QRectF arect = QRectF(point+d,point-d).normalized();

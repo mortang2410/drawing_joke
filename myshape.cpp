@@ -10,9 +10,11 @@ void MyShape::preinit()
     setCursor(QCursor(Qt::BusyCursor));
     setFlag(ItemIsSelectable);
     setPen(QPen(Qt::blue));
+    mypen.setCosmetic(true);
     setBrush(QBrush(QColor(199, 210, 219,50)));
     mypenSelected.setStyle(Qt::SolidLine);
     mypenSelected.setColor(QColor(0,0,255,120));
+
     topLevel = true;
 }
 
@@ -440,8 +442,15 @@ QRectF MySegment::boundingRect() const
     case Line:
         {
             Renderarea * theview = (Renderarea *) scene()->views().first();
-            if (theview) return theview->visibleRect();
-            else return QRectF();
+            if (theview) {
+                QRectF rect(theview->visibleRect());
+                if (lineMeetsRect(point1->scenePos(),
+                                  point2->scenePos(),rect))
+                {
+                    return rect;
+                }
+            }
+            return QRectF();
         }
     case Ray:
         {
@@ -497,12 +506,30 @@ void MySegment::penAndBrush(QPainter *painter, const QStyleOptionGraphicsItem *o
 
 }
 
+bool MySegment::lineMeetsRect(const QPointF &pointa, const QPointF &pointb, const QRectF &rect)
+{
+    QLineF line(pointa,pointb);
+    QLineF border[2];
+    border[0] = QLineF(rect.topLeft(),rect.bottomRight());
+    border[1] = QLineF(rect.bottomLeft(),rect.topRight());
+    QPointF point;
+    for (int i = 0; i<2; ++i) {
+        if (line.intersect(border[i],&point) != QLineF::NoIntersection) {
+            if  ( dotProduct(border[i].p1()-point
+                                 ,point-border[i].p2()) >= 0 )
+                return true;
+        }
+    }
+
+    return false;
+}
+
 
 QPainterPath MySegment::infiniteLine(const QPointF &pointa, const QPointF &pointb, const QRectF &rect)
 {
-    QLineF line(pointa,pointb);
+    QLineF line(pointa,pointb);    
     QPointF pt1;  QLineF border1;
-    QPointF pt2;  QLineF border2;
+    QPointF pt2;  QLineF border2;    
     if ( mymod(line.angle() - 45,180) < 90) {
         //meets the upper bar
        border1.setPoints(rect.topLeft(),rect.topRight());

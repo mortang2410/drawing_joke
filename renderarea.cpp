@@ -1,6 +1,7 @@
 #include "renderarea.h"
 #include "commands.h"
 #include "mydockwidgets.h"
+#include <Qt>
 Renderarea::Renderarea(QWidget *parent) :
     QGraphicsView(parent)
 {   
@@ -13,10 +14,17 @@ Renderarea::Renderarea(QWidget *parent) :
     myscene->setObjectName("myownscene");
     setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
     setScene(myscene);    
+    penBackground = QPen(Qt::lightGray);
+    penBackground.setCosmetic(true);
+    setCacheMode(QGraphicsView::CacheNone);
     setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
+    setOptimizationFlag(QGraphicsView::DontSavePainterState,true);
+//    setViewportUpdateMode(QGraphicsView::SmartViewportUpdate);
+
 //    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 //    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 //    setRenderHint(QPainter::SmoothPixmapTransform);
+//    setRenderHint(QPainter::Antialiasing);
 //    setRenderHint(QPainter::NonCosmeticDefaultPen);
 }
 
@@ -25,40 +33,47 @@ void Renderarea::drawBackground(QPainter *painter, const QRectF &rect)
 {
     QGraphicsView::drawBackground(painter,rect);
     if (gridEnabled) {
-        painter->setPen(QColor(Qt::lightGray));
+        painter->setWorldMatrixEnabled(true);
+        setRenderHint(QPainter::NonCosmeticDefaultPen,false);
+        painter->setPen(penBackground);
+        painter->setRenderHint(QPainter::NonCosmeticDefaultPen,false);
         qreal rawTick = normalize(mapToScene(lengthOfTick,0)
                                   - mapToScene(0,0));
-
         qreal actualTick = qPow(2,getNearestPowerOfTwo(rawTick));
         QFont newfont(painter->font());
-        newfont.setPixelSize(actualTick/2.0);
+        newfont.setPixelSize((int) (mapToScene(0,20)-mapToScene(0,0))
+                             .manhattanLength());
         newfont.setStretch(QFont::SemiCondensed);
         painter->setFont(newfont);
+//        painter->setPen(QColor(Qt::lightGray));
         for (qreal x=qCeil(rect.left()/actualTick)*actualTick;
              x<= qFloor(rect.right()/actualTick)*actualTick;
              x += actualTick)
         {
             if (mymod(x/actualTick,5)==0){
-                painter->setPen(QColor(Qt::darkGray));
+                painter->save();
+                painter->setPen( QPen(QBrush(Qt::darkGray),0)  );
                 painter->drawText(QPointF(x,rect.bottom()),
                                   QString::number(x,'g',3));
 
             }
             painter->drawLine(x,rect.bottom(),x,rect.top());
             if (mymod(x/actualTick,5)==0){
-                painter->setPen(QColor(Qt::lightGray));
+                painter->restore();
             }
         }
         for (qreal y=qCeil(rect.top()/actualTick)*actualTick;
-             y<= qFloor(rect.bottom()/actualTick)*actualTick; y += actualTick){
+             y<= qFloor(rect.bottom()/actualTick)*actualTick; y += actualTick)
+        {
             if (mymod(y/actualTick,5)==0){
-                painter->setPen(QColor(Qt::darkGray));
+                painter->save();
+                painter->setPen( QPen(QBrush(Qt::darkGray),0)  );
                 painter->drawText(QPointF(rect.left(),y),
                                   QString::number(-y,'g',3));
             }
             painter->drawLine(rect.left(),y,rect.right(),y);
             if (mymod(y/actualTick,5)==0){
-                painter->setPen(QColor(Qt::lightGray));
+                painter->restore();
             }
         }
     }
@@ -177,8 +192,8 @@ void MyGraphicsScene::clearTrash()
 
 
 void Renderarea::scale_slot(int k, bool signal)
-{
-    int ka = qMax(k,1);
+{    
+    int ka = qMax(qMin(k,1000),1);
     if (ka== RenderareaScale) return;
     QTransform mat;
     RenderareaScale = ka;
@@ -211,9 +226,10 @@ MyGraphicsScene::MyGraphicsScene(QWidget *parent)
     SceneScale=100;    
     zmax = 1;
     mouseDecor = new QGraphicsPathItem();
-    mouseDecor->setPen(QPen(Qt::blue));
+    mouseDecor->setPen(QPen(Qt::blue,0));
     inMacro = false;
     model = new ShapeModel(this,this);
+
 
 //    MyPoint * C( new MyPoint(-130,55));
 //    MyPoint * A( new MyPoint(10,10)); MyPoint * B( new MyPoint(70,70));
@@ -879,8 +895,8 @@ void MyGraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
                 mouseDecor->setPath(thepath);
                 if (mouseDecor->scene() ==0)
                     QGraphicsScene::addItem(mouseDecor);
-                QList<QGraphicsItem *> list = mouseDecor->collidingItems();
-                foreach (QGraphicsItem * item, list) item->setSelected(true);
+                foreach (QGraphicsItem * item, mouseDecor->collidingItems())
+                    if (!item->isSelected()) item->setSelected(true);
             }
             break;
         case Pan:

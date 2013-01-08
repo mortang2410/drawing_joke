@@ -195,7 +195,8 @@ private:
     bool ismoving;
     QList<MyShape *> movinglist;
     QGraphicsPathItem * mouseDecor;
-    int SceneScale;    
+    int SceneScale;
+
 };
 
 
@@ -229,6 +230,7 @@ private:
     bool gridEnabled;
     QMdiSubWindow * subWindow;
     QPoint lastPan;
+    QPen penBackground;
 signals:
     void scaleChanged(int newval);
     void savePls(bool * a = 0);

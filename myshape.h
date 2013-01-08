@@ -35,7 +35,7 @@ public:
      //getters and setters for convenient purposes
      const QPen & getPen() const{return mypen; }
      const QBrush & getBrush() const{return mybrush;}
-     void setPen( const QPen & pen) { mypen = pen; }
+     void setPen( const QPen & pen) { mypen = pen; mypen.setCosmetic(true);}
      void setBrush(const QBrush & brush)
         { mybrush = brush;}
      virtual void prepareGeometryChange(){
@@ -234,6 +234,9 @@ public:
      void penAndBrush(QPainter *painter
                       , const QStyleOptionGraphicsItem *option
                       , QWidget *widget);
+     static bool lineMeetsRect(const QPointF & pointa
+                               , const  QPointF & pointb,
+                               const QRectF & rect);
      static QPainterPath infiniteLine(const QPointF & pointa
                                       , const  QPointF & pointb,
                                       const QRectF & rect);
