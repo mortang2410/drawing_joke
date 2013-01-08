@@ -607,7 +607,8 @@ void MyGraphicsScene::keyPressEvent(QKeyEvent *event) {
             ren->scale_slot(ren->getScale()-30,true);
             break;
         default:
-            qDebug() << QString::number(event->key(),16);
+//            qDebug() << QString::number(event->key(),16);
+            ;
         }
     }
 

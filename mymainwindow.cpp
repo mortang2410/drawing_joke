@@ -649,9 +649,8 @@ void MyMainWindow::canRedoUndo()
 
 bool MyMainWindow::saveDialog()
 {
-    QString filename = QFileDialog::getSaveFileName(this);
-    if (filename.isEmpty()) {
-        QMessageBox::warning(this,tr("Error"),tr("Filename is empty."));
+    QString filename = QFileDialog::getSaveFileName(this);    
+    if (filename.isEmpty()) {        
         return false;
     }
     return savefile(filename);
@@ -660,6 +659,7 @@ bool MyMainWindow::saveDialog()
 bool MyMainWindow::loadDialog()
 {
     QString filename = QFileDialog::getOpenFileName(this);
+    if (filename.isEmpty()) return false;
     return loadfile(filename);
 }
 

@@ -71,6 +71,7 @@ void ExportDialog::setScene(QGraphicsScene *Scene)
 void ExportDialog::chooseFile()
 {
     QString name = QFileDialog::getSaveFileName(this);
+
     if ( !name.isNull()) fileNameLine->setText(name);
     QFileInfo info(name);
     int i = fileTypeBox->findText(info.suffix(),Qt::MatchFixedString);
