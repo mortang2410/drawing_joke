@@ -578,6 +578,7 @@ void MyGraphicsScene::checkItemList() const
 
 
 void MyGraphicsScene::keyPressEvent(QKeyEvent *event) {
+    Renderarea * ren = myRender();
     if (currentMode.modename != MyMode::NormalMode) {
         switch (event->key()){
         case (Qt::Key_Escape):
@@ -589,11 +590,17 @@ void MyGraphicsScene::keyPressEvent(QKeyEvent *event) {
         }
     }
     if (currentMode.modename == MyMode::NormalMode) {
-        Renderarea * ren = myRender();
         switch (event->key()) {
         case Qt::Key_Escape:
             clearSelection();
-            break;
+            break;        
+        default:
+//            qDebug() << QString::number(event->key(),16);
+            ;
+        }
+    }
+    if (ren) {
+        switch (event->key()) {
         case Qt::Key_Plus:
             ren->scale_slot(ren->getScale()+30,true);
             break;
@@ -606,12 +613,8 @@ void MyGraphicsScene::keyPressEvent(QKeyEvent *event) {
         case Qt::Key_Underscore:
             ren->scale_slot(ren->getScale()-30,true);
             break;
-        default:
-//            qDebug() << QString::number(event->key(),16);
-            ;
         }
     }
-
     QGraphicsScene::keyPressEvent(event);
 }
 

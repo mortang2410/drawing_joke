@@ -30,7 +30,7 @@ inline QString number(int x){
     return QString::number(x);
 }
 inline QString number(qreal x){
-    return QString::number(x);
+    return QString::number(x,'g',6);
 }
 inline QString bool2String(bool x){
     return QVariant(x).toString();
