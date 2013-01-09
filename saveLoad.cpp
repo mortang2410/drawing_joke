@@ -120,7 +120,7 @@ void MyWriter::write(const QString &elementName, const MyShape *shape)
     writeTextElement("isImage",bool2String(shape->isImage()));
     writeTextElement("TopLevel",bool2String(shape->isToplevel()));
     writeNameOnly("parentTransform",shape->getParentTransform());
-
+    writeTextElement("Visible",bool2String(shape->isVisible()));
     writeStartElement("SpecificInfo");
     if (shape->isPoint()){
         MyPoint * point = (MyPoint *) shape;
@@ -565,6 +565,11 @@ MyShape *MyReader::readShapeSecondPass()
             if (key == "isImage") {
                 check(shape);
                 shape->setIsImage(readBool());
+                continue;
+            }
+            if (key == "Visible") {
+                check(shape);
+                shape->setVisible(readBool());
                 continue;
             }
             if (key == "TopLevel") {

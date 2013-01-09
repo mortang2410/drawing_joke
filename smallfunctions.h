@@ -33,7 +33,7 @@ inline QString number(qreal x){
     return QString::number(x,'g',6);
 }
 inline QString bool2String(bool x){
-    return QVariant(x).toString();
+    return x ? "true" : "false";
 }
 inline bool string2Bool(QString x){
     if ( x.toLower() == "true") return true;

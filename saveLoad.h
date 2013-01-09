@@ -10,7 +10,10 @@ public:
         {message = s;}
     QString message;
 };
-class MyWriter : public QXmlStreamWriter {
+
+class MyWriter : public QXmlStreamWriter
+{
+
 public:
     bool saveTo(const QString & fileName, MyGraphicsScene * scene);
 
@@ -29,7 +32,9 @@ protected:
     void write(const QString &elementName, const MyShape * shape) ;
 };
 
-class MyReader : public QXmlStreamReader {
+class MyReader : public QXmlStreamReader
+{
+
 public:
 
     bool loadFrom(const QString & fileName, MyGraphicsScene * Scene);
