@@ -77,28 +77,13 @@ void MyTransformDockWidget::applyTransform() const
 MyShapeDock::MyShapeDock(QWidget *parent)
     :QDockWidget(parent)
 {
-    setupUi(this);
-    scene=0;
+    setupUi(this);    
     setWindowTitle(tr("Shapes"));
-    connect(treeButton,SIGNAL(clicked()),this,SLOT(treeMode()));
-    connect(listButton,SIGNAL(clicked()),this,SLOT(listMode()));
+    connect(treeButton,SIGNAL(clicked()),shapeTree,SLOT(treeMode()));
+    connect(listButton,SIGNAL(clicked()),shapeTree,SLOT(listMode()));
 }
 
 void MyShapeDock::setScene(MyGraphicsScene *Scene)
-{
-    if (scene==Scene) return;
-    scene = Scene;
+{    
     shapeTree->setScene(Scene);
-}
-
-void MyShapeDock::treeMode()
-{
-    if (shapeTree->myModel())
-        shapeTree->myModel()->treeMode();
-}
-
-void MyShapeDock::listMode()
-{
-    if (shapeTree->myModel())
-        shapeTree->myModel()->listMode();
 }

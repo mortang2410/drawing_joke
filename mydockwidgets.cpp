@@ -42,7 +42,7 @@ void MyTreeView::selectionChanged(const QItemSelection &selected, const QItemSel
 
 ShapeModel *MyTreeView::myModel() const
 {
-    return (model() == 0) ? 0 : dynamic_cast<ShapeModel *>(model());
+    return (model() == 0) ? 0 : (ShapeModel*) model();
 }
 
 void MyTreeView::sceneSelectionChanged()
@@ -60,6 +60,16 @@ void MyTreeView::sceneSelectionChanged()
         }
     }
     updateMode = false;
+}
+
+void MyTreeView::treeMode()
+{
+    if (scene) scene->accessModel()->treeMode();
+}
+
+void MyTreeView::listMode()
+{
+    if (scene) scene->accessModel()->listMode();
 }
 
 QWidget *MyTreeDelegate::createEditor(QWidget *parent

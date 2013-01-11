@@ -32,11 +32,7 @@ class MyShapeDock : public QDockWidget, private Ui::ShapeDock
 public:
     MyShapeDock(QWidget * parent =0);
     void setScene(MyGraphicsScene * Scene);
-private:
-    MyGraphicsScene * scene;
-public slots:
-    void treeMode();
-    void listMode();
+
 };
 
 

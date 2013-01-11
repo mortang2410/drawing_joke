@@ -122,7 +122,7 @@ void MyWriter::write(const QString &elementName, const MyShape *shape)
     writeNameOnly("parentTransform",shape->getParentTransform());
     writeTextElement("Visible",bool2String(shape->isVisible()));
     writeStartElement("SpecificInfo");
-    if (shape->isPoint()){
+    if (shape->isPoint()) {
         MyPoint * point = (MyPoint *) shape;
         write("Pos",point->pos());
         writeTextElement("Moveable",bool2String(point->isMoveable()));

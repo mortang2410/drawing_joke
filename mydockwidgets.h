@@ -55,6 +55,8 @@ protected:
 
 public slots:
     void sceneSelectionChanged();
+    void treeMode();
+    void listMode();
 private:
     MyGraphicsScene * scene;
     bool updateMode;
