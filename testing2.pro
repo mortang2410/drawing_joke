@@ -13,7 +13,7 @@ SOURCES += \
     mydockwidgets.cpp \
     saveLoad.cpp \
     mydockwidgets2.cpp
-PRECOMPILED_HEADER += qtmodules.h
+#PRECOMPILED_HEADER += qtmodules.h
 HEADERS += qtmodules.h \
     renderarea.h \
     myshape.h \
@@ -37,9 +37,20 @@ FORMS += \
 RESOURCES += \
     resource.qrc
 QT += widgets
-INCLUDEPATH += "D:/qtbuild/testing2"
 
 
-#FOR RELEASE MODE ONLY
-#DEFINES += QT_NO_DEBUG QT_NO_DEBUG_OUTPUT QT_NO_WARNING_OUTPUT QT_NO_DEBUG_STREAM
-#CONFIG += release
+
+
+
+#COMMENT OUT THESE LINES IF YOU DON'T WANT A STATIC BUILD.
+
+win32{
+TEMPLATE = app
+CONFIG+=static
+DEFINES += ON_WINDOWS_STATIC
+ QTPLUGIN     +=  qico qsvg
+}
+
+
+
+

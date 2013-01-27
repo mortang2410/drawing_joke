@@ -13,7 +13,6 @@ const int PROGRAM_VERSION = 1;
 #include <QTransform>
 #include <QUndoCommand>
 #include <QtSvg/QSvgGenerator>
+#include <QtPlugin>
 #include <cmath>
-
-
 #endif // QTMODULES_H
