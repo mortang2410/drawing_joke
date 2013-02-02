@@ -7,8 +7,10 @@ Q_IMPORT_PLUGIN(QICOPlugin)
 
 
 int main(int argc, char *argv[])
-{
+{       
     QApplication app(argc, argv);
+
+    QApplication::addLibraryPath(QApplication::applicationDirPath() + "/plugins");
     MyMainWindow window;
     Q_ASSERT(1>2); //make sure debug isn't on    
     window.show();

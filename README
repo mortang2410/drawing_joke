@@ -1,4 +1,7 @@
 A drawing app as a pet project.
-To compile this, you'll need Qt 5 and qmake. On Windows it will create a static build and thus need a static version of Qt. By default Qt libraries are dynamic (if you get the binary version). If you don't want to compile a static version of Qt (hint: you probably shouldn't try doing so, since Qt 5 is still very new and its static version is somewhat broken), open the .pro file in Qt creator and read the comments on how to build with dynamic linking instead (basically, comment out the last lines).
+To compile this, you'll need Qt 5 and qmake. 
+On Windows you can build this application both dynamically and statically. By default Qt libraries are dynamic (if you get the binary version). If you don't want to compile a static version of Qt (hint: you probably shouldn't try doing so, since Qt 5 is still very new and its static version is somewhat broken), open the .pro file in Qt creator and read the comments on how to build with dynamic linking instead (basically, comment out the last lines). 
+
+For others to use your dynamic application, you need to copy the relevant dll files to the application's directory (let's call it DIR1), and the necessary plugins to DIR1\plugins.
 
 

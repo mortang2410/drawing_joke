@@ -44,12 +44,12 @@ QT += widgets
 
 #COMMENT OUT THESE LINES IF YOU DON'T WANT A STATIC BUILD.
 
-win32{
-TEMPLATE = app
-CONFIG+=static
-DEFINES += ON_WINDOWS_STATIC
- QTPLUGIN     +=  qico qsvg
-}
+#win32{
+#TEMPLATE = app
+#CONFIG+=static
+#DEFINES += ON_WINDOWS_STATIC
+# QTPLUGIN     +=  qico qsvg
+#}
 
 
 
